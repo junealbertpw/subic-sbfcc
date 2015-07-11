@@ -1,0 +1,137 @@
+<style>
+#articleTable thead tr th {
+    padding-left: 20px;
+}
+
+.btn.tag {
+    font-size: 95%;
+    line-height: 0.8em;
+}
+</style>
+
+<% stylesheets 'tables' %>
+<% javascripts 'tables' %>
+
+<%= render partials[:nav] %>
+
+<div class="page-container">    
+    <%= render partials[:header] %>
+
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="jumbotron" data-pages="parallax">
+                <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+                    <div class="inner">
+                        <ul class="breadcrumb">
+                            <li>
+                                <p>Posts</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid container-fixed-lg bg-white">
+                <div class="panel panel-transparent">
+                    <div class="panel-heading">
+                        <div class="btn-group pull-right m-b-10">
+                            <a href="<%= new_pw_post_path %>" class="btn btn-default">New Post</a>
+                            <!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="tables.html#">Settings</a></li>
+                                <li><a href="tables.html#">Help</a></li>
+                            </ul> -->
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="articleTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width:1%">
+                                            <button class="btn"><i class="pg-trash"></i>
+                                            </button>
+                                        </th>
+                                        <th style="width:10%">Cover</th>
+                                        <th>Title</th>
+                                        <th style="width:10%">Category</th>
+                                        <th style="width:25%">Tags</th>
+                                        <th style="width:10%">Status</th>
+                                        <th style="width:16%">Last Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% @posts.each do |post| %>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <div class="checkbox ">
+                                                <input type="checkbox" value="3" id="checkbox1">
+                                                <label for="checkbox1"></label>
+                                            </div>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <% if post.cover.exists? %>
+                                                <img src="<%= post.cover.url(:thumb) %>" alt="">
+                                            <% else %>
+                                                <img src="<%= asset_path('img_not_available.png') %>" alt="" width="100">
+                                            <% end %>
+                                        </td>
+                                        <td class="v-align-middle post-content">
+                                            <!-- <p><%= raw(post.content) %></p> -->
+                                            <p><a href="<%= edit_pw_post_path(post.id) %>"><%= post.title %></a></p>
+                                        </td>
+                                        <td>
+                                            <p><%= post.category_id == 0 ? post_default_category.titlecase : @hash[post.category_id].titlecase %></p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <% 
+                                                if !post.tags.nil?
+                                                    tags = post.tags.split(",")
+                                                    post.tags.split(",").each do |tag|
+                                            %>
+                                                <a href="#" class="btn tag"><%= tag %></a>
+                                            <% 
+                                                    end 
+                                                end
+                                            %>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p><%= post.status.titlecase %></p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p><%= format_date(post.updated_at, "%Y-%m-%d %I:%m %p") %></p>
+                                        </td>
+                                    </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <%= render partials[:footer] %>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+    var styles = {
+        'margin-top' : '-5px',
+        'max-height' : '80px',
+        'font-family' : 'inherit',
+        'font-size' : 'inherit',
+        'color' : 'inherit',
+        'line-height' : 'inherit',
+        'text-align' : 'inherit',
+        'overflow' : 'hidden'
+    };
+
+    $('.post-content p').css(styles);
+    $('.post-content span').css(styles);
+});
+</script>

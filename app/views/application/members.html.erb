@@ -1,0 +1,44 @@
+<!-- End Site Header --> <!-- Start Page Header --> 
+<div class="page-header parallax clearfix" style="background-image:url('images/parallax2.0380da51.jpg')">
+    <div class="title-subtitle-holder">
+        <div class="title-subtitle-holder-inner">
+            <h2>Our Members</h2>
+        </div>
+    </div>
+</div>
+<!-- End Page Header --> <!-- Breadcrumbs --> 
+<div class="lgray-bg breadcrumb-cont">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">Our Members</li>
+        </ol>
+    </div>
+</div>
+<!-- Start Body Content --> 
+<div class="main" role="main">
+    <div id="content" class="content full">
+        <div class="container">
+            <%
+                @members = member_by_types(@business) 
+
+                @members.each do |type, businesses|
+            %>
+            <h3><%= type.humanize.titlecase %> Members</h3>
+            <hr class="sm">
+            <div class="row">
+                <% businesses.each do |business| %>
+                <div class="col-md-4 col-sm-4"><img src="<%= business.cover(:small) %>"> </div>
+                <% end %>    
+            </div>
+            <div class="spacer-40"></div>
+            <% end %>
+            <!-- <h3>Unpaid Members</h3>
+            <hr class="sm">
+            <div class="row">
+                <div class="col-md-3 col-sm-6"> <img src="images/logos/lh_logo.703e2647.png" style="filter: grayscale(100%); -webkit-filter: grayscale(100%)"> </div>
+                <div class="col-md-3 col-sm-6"> <img src="images/logos/download.f1e54eda.png" style="filter: grayscale(100%); -webkit-filter: grayscale(100%)"> </div>
+            </div> -->
+        </div>
+    </div>
+</div>

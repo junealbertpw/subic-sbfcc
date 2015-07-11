@@ -1,0 +1,9 @@
+<div class="widget sidebar-widget widget_categories">
+    <h3 class="widgettitle">Post Categories</h3>
+    <ul>
+        <li><a href="blog-post.html#">General</a> --</li>
+        <% @categories.each do |category| %>
+        <li><a href=""><%= category.name %></a> --</li>
+        <% end %>
+    </ul>
+</div>

@@ -1,0 +1,125 @@
+<style>
+#articleTable thead tr th {
+    padding-left: 20px;
+}
+
+.right {
+    float: right;
+}
+</style>
+
+<% stylesheets 'tables' %>
+<% javascripts 'tables' %>
+
+<%= render partials[:nav] %>
+
+<div class="page-container">
+    <%= render partials[:header] %>
+
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="jumbotron" data-pages="parallax">
+                <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+                    <div class="inner">
+                        <ul class="breadcrumb">
+                            <li>
+                                <p>Categories</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid container-fixed-lg bg-white">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="panel panel-transparent">
+                            <div class="panel-heading">
+                                <div class="panel-title">Categories</div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-condensed" id="condensedTable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:30%">Name</th>
+                                                <th style="width:20%">Parent</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% @categories.each do |category| %>
+                                            <tr>
+                                                <td class="v-align-middle semi-bold">
+                                                    <a href="<%= pw_category_path(category.id) %>"><%= category.name %></a>
+                                                </td>
+                                                <td class="v-align-middle semi-bold"><%= category.parent.titlecase %></td>
+                                                <td class="v-align-middle semi-bold"><%= category.description %></td>
+                                            </tr>
+                                            <% end %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="panel panel-transparent">
+                            <div class="panel-body">
+                                <br/><br/>
+
+                                <p>Category Information</p>
+                                <%= form_for @category, url: { action: "create" } do |f| %>
+                                
+                                <%= f.hidden_field :id %>
+
+                                <div class="form-group-attached">
+                                    <div class="form-group">
+                                        <div class="radio radio-success">
+                                            <%= f.radio_button :parent, "post", :id => "post" %>
+                                            <label for="post">Post</label>
+                                            <%= f.radio_button :parent, "article", :id => "article" %>
+                                            <label for="article">article</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-group-default required">
+                                        <label>Name</label>
+                                        <%= f.text_field :name, :class => "form-control" %>
+                                    </div>
+                                    <div class="form-group form-group-default required">
+                                        <label>Description</label>
+                                        <%= f.text_field :description, :class => "form-control" %>
+                                    </div>
+                                </div>
+                                <br>
+                                <a href="<%= new_pw_category_path %>" class="btn btn-default">New Category</a>
+                                <button type="submit" class="btn btn-primary right"><%= @category.id == nil ? "Create" : "Update"%></button>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= render partials[:footer] %>
+</div>
+</div>
+<script type="text/javascript">
+$(function() {
+    var styles = {
+        'margin-top' : '-5px',
+        'max-height' : '80px',
+        'font-family' : 'inherit',
+        'font-size' : 'inherit',
+        'color' : 'inherit',
+        'line-height' : 'inherit',
+        'text-align' : 'inherit',
+        'overflow' : 'hidden'
+    };
+    
+    $('.post-content p').css(styles);
+    $('.post-content span').css(styles);
+});
+</script>

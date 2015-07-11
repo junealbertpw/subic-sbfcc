@@ -1,0 +1,41 @@
+<style>
+#articleTable thead tr th {
+    padding-left: 20px;
+}
+
+.btn.tag {
+    font-size: 95%;
+    line-height: 0.8em;
+}
+</style>
+
+<% stylesheets 'tables' %>
+<% javascripts 'tables' %>
+
+<%= render partials[:nav] %>
+
+<div class="page-container">    
+    <%= render partials[:header] %>
+
+    <div class="page-content-wrapper">
+        <%= render partials[:footer] %>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+    var styles = {
+        'margin-top' : '-5px',
+        'max-height' : '80px',
+        'font-family' : 'inherit',
+        'font-size' : 'inherit',
+        'color' : 'inherit',
+        'line-height' : 'inherit',
+        'text-align' : 'inherit',
+        'overflow' : 'hidden'
+    };
+
+    $('.post-content p').css(styles);
+    $('.post-content span').css(styles);
+});
+</script>

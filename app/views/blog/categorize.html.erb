@@ -1,0 +1,159 @@
+<style>
+/*.media-box {
+    min-height: 300px;
+    background-color: #efefef;
+}*/
+</style>
+
+<script type="text/javascript">
+$(function() {
+    $( '.media-box img' ).error(function () {
+        // $( this ).unbind( 'error' ).attr( 'src', '<%= asset_path('img_not_available.png') %>');
+        // $( this ).parent( '.media-box' ).hide()
+        $( this ).hide();
+    });
+});
+</script>
+
+<div class="page-header parallax clearfix" style="background-color:#333">
+    <div class="page-header-overlay" style="background-image:url(<%= asset_path('images/ph4.jpg') %>);"></div>
+    <div class="title-subtitle-holder">
+        <div class="title-subtitle-holder-inner">
+            <h2>Blog</h2>
+            <hr class="sm">
+            <span class="subtitle">Way to show what is going on in your website</span>
+        </div>
+    </div>
+</div>
+<!-- End Page Header -->
+
+<!-- Breadcrumbs -->
+<div class="lgray-bg breadcrumb-cont">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="<%= blog_path %>">Blog</a></li>
+            <li class="active"><%= @category.name %></li>
+        </ol>
+    </div>
+</div>
+
+<!-- Start Body Content -->
+<div class="main" role="main">
+    <div id="content" class="content full">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="posts-listing">
+                        <% @posts.each do |post| %>
+                        <article class="post-list-item format-standard">
+                            <% if post.cover.exists? %>
+                            <div class="post-media">
+                                <a href="<%= post_slug_path(@category.slug, post.slug) %>" class="media-box">
+                                <img src="<%= post.cover.url(:medium) %>" alt="" class="post-thumb" width="100%">
+                                </a>
+                            </div>
+                            <% end %>
+                            <div class="post-excerpt">
+                                <span class="meta-data">
+                                <i class="fa fa-calendar"></i> <%= format_post_published_date(post.published_at) %> by 
+                                <a href=""><%= post.company_id == nil ? Category.default.titlecase : post.company_name %></a>
+                                </span>
+                                <h3 class="post-title">
+                                    <a href="<%= post_slug_path(@category.slug, post.slug) %>"><%= post.title %></a>
+                                </h3>
+                                <div class="post-content" style="margin-bottom: 15px; max-height: 90px; overflow: hidden;">
+                                    <%= raw(post.content) %>    
+                                </div>
+                                <!-- <span class="meta-data post-cats"><a href="blog-standard.html#">General</a> | <a href="blog-standard.html#">Featured</a><a href="blog-standard.html#">2 <i class="fa fa-comments"></i></a></span> -->
+                                <span class="meta-data post-cats">
+                                <a href="<%= post_category_path(@category.slug) %>"><%= @category.name %></a>
+                                </span>
+                                <a href="<%= post_slug_path(@category.slug, post.slug) %>" class="basic-link">Continue reading</a>
+                            </div>
+                        </article>
+                        <% end %>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <% if @posts.size == 10 %>
+                    <ul class="pagination">
+                        <li><a href="blog-standard.html#"><i class="fa fa-chevron-left"></i></a></li>
+                        <li><a href="blog-standard.html#">1</a></li>
+                        <li class="active"><a href="blog-standard.html#">2</a></li>
+                        <li><a href="blog-standard.html#">3</a></li>
+                        <li><a href="blog-standard.html#">4</a></li>
+                        <li><a href="blog-standard.html#">5</a></li>
+                        <li><a href="blog-standard.html#"><i class="fa fa-chevron-right"></i></a></li>
+                    </ul>
+                    <% end %>
+                    <br/><br/>
+                </div>
+                <div class="col-md-4">
+                    <div class="widget sidebar-widget search-form-widget">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Posts...">
+                            <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"><i class="fa fa-search fa-lg"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <%= render partial: partials[:posts][:category_selection], :locals => { :categories => @categories } %>
+
+                    <div class="widget sidebar-widget upcoming_events_widget">
+                        <h3 class="widgettitle">Upcoming Events</h3>
+                        <div class="events-listing-content smaller-cont">
+                            <div class="event-list-item">
+                                <div class="event-list-item-date">
+                                    <span class="event-date">
+                                    <span class="event-day">22</span>
+                                    <span class="event-month">Sep, 14</span>
+                                    </span>
+                                </div>
+                                <div class="event-list-item-info">
+                                    <div class="lined-info event-title">
+                                        <h4><a href="blog-standard.html#">Water Baptism</a></h4>
+                                    </div>
+                                    <span class="meta-data"><i class="fa fa-clock-o"></i> Monday, 10:00 AM</span>
+                                    <span class="meta-data"><i class="fa fa-map-marker"></i> State Route, Madison US</span>
+                                </div>
+                            </div>
+                            <div class="event-list-item">
+                                <div class="event-list-item-date">
+                                    <span class="event-date">
+                                    <span class="event-day">27</span>
+                                    <span class="event-month">Sep, 14</span>
+                                    </span>
+                                </div>
+                                <div class="event-list-item-info">
+                                    <div class="lined-info event-title">
+                                        <h4><a href="blog-standard.html#">Sunday Meet Up</a></h4>
+                                    </div>
+                                    <span class="meta-data"><i class="fa fa-clock-o"></i> Sunday, 05:00 PM</span>
+                                    <span class="meta-data"><i class="fa fa-map-marker"></i> <span class="event-location-address">55 Warren Street, New York</span></span>
+                                </div>
+                            </div>
+                            <div class="event-list-item">
+                                <div class="event-list-item-date">
+                                    <span class="event-date">
+                                    <span class="event-day">06</span>
+                                    <span class="event-month">Feb, 15</span>
+                                    </span>
+                                </div>
+                                <div class="event-list-item-info">
+                                    <div class="lined-info event-title">
+                                        <h4><a href="http://www.google.com">Holy shift: Strategic think</a></h4>
+                                    </div>
+                                    <span class="meta-data"><i class="fa fa-clock-o"></i> Monday, 10:00 AM</span>
+                                    <span class="meta-data"><i class="fa fa-map-marker"></i> <span class="event-location-address">123 Broadway, New York, NY</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Body Content -->

@@ -1,0 +1,84 @@
+<div class="row">
+   <div class="col-md-8">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title"><%= title %></div>
+         </div>
+
+         <div class="panel-body">
+            <p>Please complete all the <strong class="red">*</strong> required fields</p>
+            <div class="form-group">
+               <label><strong class="red">*</strong> Title</label>
+               <!-- <input type="text" class="form-control" require="" placeholder="Enter a title here" ng-model="article.title"> -->
+               <%= f.text_field :title, :class => "form-control", :placeholder => "Enter a title here" %>
+            </div>
+            <!-- <div class="form-group">
+               <label><strong class="red">*</strong> Short Description</label>
+               <span class="help">"Must be 100 characters long"</span>
+               <div class="summernote-wrapper">
+                   
+               </div>
+               </div> -->
+            <div class="form-group">
+               <label><strong class="red">*</strong> Content Body</label>
+               <div class="summernote-wrapper">
+                  <%= f.text_area :content, :id => "summer-body", :class => "note-editable" %>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- <div class="col-md-4">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <div class="panel-title">Poster Attachment</div>
+          </div>
+          <div class="poster panel-body no-scroll no-padding">
+              <div class="fallback">
+                  <div class="preview">
+                      <img src=""/>
+                  </div>
+                  <div class="btn btn-default btn-file" ngf-select ng-model="files">Browse</div>
+              </div>
+          </div>
+      </div>
+      </div> -->
+
+   <div class="col-md-4">
+      <div class="panel panel-default">
+         <div class="panel-body">
+            <div class="form-group" style="padding-bottom: -10px;">
+               <label>Tags</label>
+               <!-- <span class="help">"Separate tags with commas"</span> -->
+               <%= f.text_field :tags, :class => "tagsinput custom-tag-input" %>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-md-4">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Save As</div>
+         </div>
+         <div class="panel-body">
+            <p>Do you want to publish your new article?</p>
+            <div class="radio radio-success">
+                <% if @article.status != "publish" %>
+                  <%= f.radio_button :status, "draft", :id => "draft" %>
+                  <label for="draft">Draft</label>
+                <% else %>
+                  <%= f.radio_button :status, "trash", :id => "trash" %>
+                  <label for="trash">Trash</label>
+                <% end %>
+
+                <%= f.radio_button :status, "publish", :id => "publish" %>
+                <label for="publish">Publish</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary"><%= params[:action] == "new" ? "Create" : "Update" %></button>
+         </div>
+      </div>
+   </div>
+</div>

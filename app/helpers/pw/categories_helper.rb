@@ -1,0 +1,2 @@
+module Pw::CategoriesHelper
+end

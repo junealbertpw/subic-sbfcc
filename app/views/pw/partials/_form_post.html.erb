@@ -1,0 +1,175 @@
+<style>
+.red {
+    color: #cc0000;
+}
+
+.poster {
+    position: relative;
+}
+
+.poster .preview {
+    height: 300px;
+    overflow: hidden;;
+    background-color:  #efefef;
+}
+
+.poster .preview img {
+    width: 100%;
+    border: 0 none;
+    box-shadow: none;
+}
+
+.poster .btn-file {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    overflow: hidden;
+}
+
+.preview img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+</style>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><%= title %></div>
+            </div>
+            <div class="panel-body">
+                <p>Please complete all the <strong class="red">*</strong> required fields</p>
+
+                <div class="form-group">
+                    <label>Category</label>
+
+                    <%= f.hidden_field :category_id %>
+
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          <span class="drop-section">
+                            <% if @post.category_id.nil? || @post.category_id == 0 %>
+                              General 
+                            <%
+                              else
+                                @categories.each do |category|
+                                  if category.id == @post.category_id
+                                    concat category.name
+                                    break
+                                  end
+                                end
+                              end 
+                            %>
+                          </span>
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a alt="0"><%= Category.default.titlecase %></a></li>
+                            <% @categories.each do |category|  %>
+                            <li><a alt="<%= category.id %>"><%= category.name %></a></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><strong class="red">*</strong> Title</label>
+                    <!-- <input type="text" class="form-control" require="" placeholder="Enter a title here" ng-model="article.title"> -->
+                    <%= f.text_field :title, :class => "form-control", :placeholder => "Enter a title here" %>
+                </div>
+
+                <div class="form-group">
+                    <label>Tags</label>
+                    <!-- <span class="help">"Separate tags with commas"</span> -->
+                    <%= f.text_field :tags, :class => "tagsinput custom-tag-input" %>
+                </div>
+
+                <div class="form-group">
+                    <label><strong class="red">*</strong> Content Body</label>
+                    <div class="summernote-wrapper">
+                        <%= f.text_area :content, :id => "summer-body", :class => "note-editable" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Cover Image</div>
+            </div>
+            <div class="poster panel-body no-scroll no-padding">
+                <div class="fallback">
+                    <div id="img_preview" class="preview">
+                        <% if @post.cover.exists? %>
+                            <img src="<%= @post.cover.url(:medium) %>" alt="">
+                        <% end %>
+                    </div>
+                    <div style="height:0px;overflow:hidden">
+                        <%= f.file_field :cover, :class => "form-control file-control", :accept => "image/gif, image/jpeg, image/jpg, image/png", :onchange => "readURL(this);" %>
+                        <!-- <input type="file" id="image_filed" name="fileInput" accept="image/gif, image/jpeg, image/jpg, image/png" onchange="readURL(this);"/> -->
+                    </div>
+                    <div class="btn btn-default btn-file">Browse</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Save As</div>
+            </div>
+            <div class="panel-body">
+                <p>Do you want to publish your new post?</p>
+                <div class="radio radio-success">
+                    <% if @post.status == "publish" %>
+                    <%= f.radio_button :status, "trash", :id => "trash" %>
+                    <label for="trash">Trash</label>
+                    <% else %>
+                    <%= f.radio_button :status, "draft", :id => "draft" %>
+                    <label for="draft">Draft</label>
+                    <% end %>
+                    <%= f.radio_button :status, "publish", :id => "publish" %>
+                    <label for="publish">Publish</label>
+                </div>
+                <button type="submit" class="btn btn-primary"><%= params[:action] == "new" ? "Create" : "Update" %></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$( function() {
+  $( '.dropdown li a' ).click( function() {
+    $( '#post_category_id' ).val( $( this ).attr( 'alt' ) );
+    $( '.drop-section' ).text( $( this ).text() )
+  });
+
+  $( '.btn-file' ).click(function() {
+    $( '.file-control' ).click();
+  })
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        var img = $('<img id="img_cover">');
+
+        reader.onload = function (e) {
+            img.attr('src', e.target.result);
+                // .width(150)
+                // .height(200);
+
+            $( '#img_preview' ).html( img );
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>

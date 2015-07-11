@@ -1,0 +1,256 @@
+<style>
+.red {
+    color: #cc0000;
+}
+
+.poster {
+    position: relative;
+}
+
+.poster .preview {
+    height: 200px;
+    overflow: hidden;
+    background-color:  #efefef;
+}
+
+.poster .preview img {
+    max-width: 70%;
+    border: 0 none;
+    box-shadow: none;
+}
+
+.poster .btn-file {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    overflow: hidden;
+}
+
+.preview img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+</style>
+
+<div class="row">
+   <div class="col-md-8">
+      
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Contact Person</div>
+         </div>
+
+         <div class="panel-body">
+            <p>Please complete all the <strong class="red">*</strong> required fields</p>
+
+            <div class="row clearfix">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-default required">
+                        <label>First name</label>
+                        <%= f.text_field :first_name, :class => "form-control"%>
+                    </div>
+                </div>
+              
+                <div class="col-sm-6">
+                    <div class="form-group form-group-default required">
+                        <label>Last name</label>
+                        <%= f.text_field :last_name, :class => "form-control"%>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group form-group-default required">
+                        <label>Email address</label>
+                        <%= f.text_field :email, :class => "form-control"%>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-default required">
+                        <label>Password</label>
+                        <%= f.password_field :new_password, :class => "form-control"%>
+                    </div>
+                </div>
+              
+                <div class="col-sm-6">
+                    <div class="form-group form-group-default required">
+                        <label>Confirm Password</label>
+                        <%= f.password_field :confirm_password, :class => "form-control"%>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group form-group-default">
+                        <label>Position</label>
+                        <%= f.text_field :position, :class => "form-control"%>
+                    </div>
+                </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Business Information</div>
+         </div>
+
+         <div class="panel-body">
+            <%= f.fields_for :company do |c| %>
+            <%= c.hidden_field :member_type, :id => "company_member_type" %>
+
+            <div class="form-group">
+               <label><strong class="red">*</strong> Business Name</label>
+               <%= c.text_field :name, :class => "form-control", :placeholder => "Enter company name here" %>
+            </div>
+
+            <div class="form-group">
+               <label>Website</label>
+               <%= c.text_field :website, :class => "form-control", :placeholder => "Enter company website here" %>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                        <label>Phone</label>
+                        <%= c.text_field :phone, :class => "form-control"%>
+                    </div>
+                </div>
+              
+                <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                        <label>Fax</label>
+                        <%= c.text_field :fax, :class => "form-control"%>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+               <label>Email Address</label>
+               <%= c.text_field :email, :class => "form-control", :placeholder => "" %>
+            </div>
+
+            <div class="form-group">
+               <label>Address</label>
+               <%= c.text_field :address, :class => "form-control", :placeholder => "" %>
+            </div>
+
+            <div class="form-group">
+               <label><strong class="red">*</strong> Description</label>
+               <div class="summernote-wrapper">
+                  <%= c.text_area :description, :id => "summer-body", :class => "note-editable" %>
+               </div>
+            </div>
+            <% end %>
+         </div>
+      </div>
+   </div>
+
+  <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Business Logo</div>
+            </div>
+            <div class="poster panel-body no-scroll no-padding">
+                <%= f.fields_for :company do |c| %>
+                <div class="fallback">
+                    <div id="img_preview" class="preview">
+                        <% if @user.company.cover.exists? %>
+                            <img src="<%= @user.company.cover.url(:medium) %>" alt="">
+                        <% end %>
+                    </div>
+                    <div style="height:0px;overflow:hidden">
+                        <%= c.file_field :cover, :class => "form-control file-control", :accept => "image/gif, image/jpeg, image/jpg, image/png", :onchange => "readURL(this);" %>
+                        <!-- <input type="file" id="image_filed" name="fileInput" accept="image/gif, image/jpeg, image/jpg, image/png" onchange="readURL(this);"/> -->
+                    </div>
+                    <div class="btn btn-default btn-file">Browse</div>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+   <div class="col-md-4">
+      <div class="panel panel-default">
+         <div class="panel-body">
+            <p>Please select a member type</p>
+            
+            <div class="form-group">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="drop-section">
+                            <%= @user.company.member_type == nil ? @member_types.first[0].humanize : @user.company.member_type.titlecase %>
+                        </span>
+                        <span class="caret"></span>
+                    </button>
+                
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <% @member_types.each do |x, y|  %>
+                            <li><a alt="<%= x %>"><%= x.humanize %></a></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Save As</div>
+            </div>
+            <div class="panel-body">
+                <p>Do you want to activate this new member?</p>
+                <div class="radio radio-success">
+                    <%= f.fields_for :company do |c| %>
+                        <% Company.statuses.each do |x, y|  %>
+                            <% break if params[:action] == "new" && y > 1 %>
+                            <% break if params[:action] == "edit" && @user.company.status == "draft" && y == 2 %>
+                            <% next if @user.company.status == "activate" && y == 0 %>
+                            <%= c.radio_button :status, x, :id => x %>
+                            <label for="<%= x %>"><%= x.titlecase %></label>
+                        <% end %>
+                    <% end %>
+                </div>
+                <button type="submit" class="btn btn-primary"><%= params[:action] == "new" ? "Create" : "Update" %></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$( function() {
+  $( '.dropdown li a' ).click( function() {
+    $( '#company_member_type' ).val( $( this ).attr( 'alt' ) );
+    $( '.drop-section' ).text( $( this ).text() )
+  });
+
+  $( '.btn-file' ).click(function() {
+    $( '.file-control' ).click();
+  })
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        var img = $('<img id="img_cover">');
+
+        reader.onload = function (e) {
+            img.attr('src', e.target.result); // .height(120);
+
+            $( '#img_preview' ).html( img );
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>

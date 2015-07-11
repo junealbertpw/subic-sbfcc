@@ -1,0 +1,124 @@
+<nav class="page-sidebar" data-pages="sidebar">
+    <div class="sidebar-overlay-slide from-top" id="appMenu">
+        <div class="row">
+            <div class="col-xs-6 no-padding">
+                <a href="index.html#" class="p-l-40"><img src="<%= asset_path('assets/img/demo/social_app.svg') %>" alt="Social"></a>
+            </div>
+            <div class="col-xs-6 no-padding">
+                <a href="index.html#" class="p-l-10"><img src="<%= asset_path('assets/img/demo/email_app.svg') %>" alt="Emails"></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 m-t-20 no-padding">
+                <a href="index.html#" class="p-l-40"><img src="<%= asset_path('assets/img/demo/calendar_app.svg') %>" alt="Calendar"></a>
+            </div>
+            <div class="col-xs-6 m-t-20 no-padding">
+                <a href="index.html#" class="p-l-10"><img src="<%= asset_path('assets/img/demo/add_more.svg') %>" alt="Add More"></a>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-header">
+        <img src="<%= asset_path('assets/img/logo_white.png') %>" alt="logo" data-src="<%= asset_path('assets/img/logo_white.png') %>" data-src-retina="<%= asset_path('assets/img/logo_white_2x.png') %>" width="78" height="22">
+
+        <div class="sidebar-header-controls">
+            <button type="button" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" data-pages-toggle="#appMenu">
+            <i class="fa fa-angle-down fs-16"></i>
+            </button>
+            <button type="button" class="btn btn-link visible-lg-inline" data-toggle-pin="sidebar"><i class="fa fs-12"></i></button>
+        </div>
+    </div>
+    <div class="sidebar-menu">
+        <ul class="menu-items">
+            <li class="m-t-30 open">
+                <a href="<%= pw_dashboard_path %>" class="detailed">
+                <span class="title">Dashboard</span>
+                <!-- <span class="details">12 New Updates</span> -->
+                </a>
+                <span class="icon-thumbnail bg-success"><i class="pg-home"></i></span>
+            </li>
+            <!-- <li class="">
+                <a href="email.html" class="detailed">
+                <span class="title">Email</span>
+                <span class="details">234 New Emails</span>
+                </a>
+                <span class="icon-thumbnail "><i class="pg-mail"></i></span>
+            </li> -->
+            <li class="">
+                <a href="javascript:;"><span class="title">Articles</span>
+                <span class=" arrow"></span></a>
+                <span class="icon-thumbnail">Ui</span>
+                <ul class="sub-menu">
+                    <li class="">
+                        <a href="<%= pw_articles_path %>"><%= display_on_super_and_admin ? "All" : "My" %> Articles</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                    <li class="">
+                        <a href="<%= new_pw_article_path %>">New Article</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="javascript:;"><span class="title">Blog</span>
+                <span class=" arrow"></span></a>
+                <span class="icon-thumbnail"></span>
+                <ul class="sub-menu">
+                    <li class="">
+                        <a href="<%= pw_posts_path %>"><%= display_on_super_and_admin ? "All" : "My" %> Posts</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                    <li class="">
+                        <a href="<%= new_pw_post_path %>">New Post</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                    <% if display_on_super_and_admin %>
+                    <li class="">
+                        <a href="<%= new_pw_category_path %>">Categories</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                    <% end %>
+                </ul>
+            </li>
+            <% if display_on_super_and_admin %>
+            <li class="">
+                <a href="javascript:;"><span class="title">Members</span>
+                <span class=" arrow"></span></a>
+                <span class="icon-thumbnail"></span>
+                <ul class="sub-menu">
+                    <li class="">
+                        <a href="<%= pw_members_path %>">All Members</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                    <li class="">
+                        <a href="<%= new_pw_member_path %>">New Member</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                </ul>
+            </li>
+            <% end %>
+            <li class="">
+                <a href="javascript:;"><span class="title">Users</span>
+                <span class=" arrow"></span></a>
+                <span class="icon-thumbnail"></span>
+                <ul class="sub-menu">
+                    <li class="">
+                        <a href="<%= pw_users_path %>"><%= display_on_super_and_admin ? "All" : "My" %> Users</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                    <li class="">
+                        <a href="<%= new_pw_user_path %>">New User</a>
+                        <span class="icon-thumbnail"></span>
+                    </li>
+                </ul>
+            </li>
+            <li class="m-t-30 open">
+                <a href="<%= pw_logout_path %>" class="detailed">
+                <span class="title">Signout</span>
+                <!-- <span class="details">12 New Updates</span> -->
+                </a>
+                <span class="icon-thumbnail bg-success"><i class="pg-home"></i></span>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</nav>

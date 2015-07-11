@@ -1,0 +1,8 @@
+<div class="widget sidebar-widget widget_categories">
+    <h3 class="widgettitle">Post Categories</h3>
+    <ul>
+        <% @categories.each do |category| %>
+        <li><a href="<%= post_category_path(category[:slug]) %>"><%= category[:name] %></a> --</li>
+        <% end %>
+    </ul>
+</div>

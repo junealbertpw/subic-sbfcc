@@ -1,0 +1,119 @@
+<style>
+#articleTable thead tr th {
+    padding-left: 20px;
+}
+
+.gray {
+    color: #999999;
+}
+</style>
+
+<% stylesheets 'tables' %>
+<% javascripts 'tables' %>
+
+<%= render partials[:nav] %>
+
+<div class="page-container">    
+    <%= render partials[:header] %>
+
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="jumbotron" data-pages="parallax">
+                <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+                    <div class="inner">
+                        <ul class="breadcrumb">
+                            <li>
+                                <p>Members</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid container-fixed-lg bg-white">
+                <div class="panel panel-transparent">
+                    <div class="panel-heading">
+                        <div class="btn-group pull-right m-b-10">
+                            <a href="<%= new_pw_member_path %>" class="btn btn-default">New Member</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="articleTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width:1%">
+                                            <button class="btn"><i class="pg-trash"></i></button>
+                                        </th>
+                                        <th>Company Name</th>
+                                        <th>Person</th>
+                                        <th style="width:12%">Type</th>
+                                        <th style="width:10%">Status</th>
+                                        <!-- <th style="width:10%">Status</th> -->
+                                        <th style="width:16%">Last Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% @users.each do |user| %>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <div class="checkbox" style="margin-top: -5px;">
+                                                <input type="checkbox" value="3" id="checkbox1">
+                                                <label for="checkbox1"></label>
+                                            </div>
+                                        </td>
+                                        <td class="v-align-middle ">
+                                            <p>
+                                                <a href="<%= pw_member_path(user.id) %>"><%= user.name %></a><br/>
+                                                <a class="gray" href="<%= user.website %>" target="_blank"><%= user.website %></a>
+                                            </p>
+                                        </td>
+                                        <td class="v-align-middle ">
+                                            <p>
+                                                <a href="<%= edit_pw_member_path(user.id) %>">
+                                                    <%= user.first_name.titlecase %> <%= user.last_name.titlecase %>
+                                                </a><br/>
+                                                <span class="gray"><%= user.email %></span>
+                                            </p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p><%= member_type_text_by_enum(user.member_type) %></p>
+                                        </td>
+                                        <td>
+                                            <p><%= user.status.titlecase %></p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p><%= format_date(user.updated_at, "%Y-%m-%d %I:%m %p") %></p>
+                                        </td>
+                                    </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <%= render partials[:footer] %>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+    var styles = {
+        'margin-top' : '-5px',
+        'max-height' : '80px',
+        'font-family' : 'inherit',
+        'font-size' : 'inherit',
+        'color' : 'inherit',
+        'line-height' : 'inherit',
+        'text-align' : 'inherit',
+        'overflow' : 'hidden'
+    };
+
+    $('.post-content p').css(styles);
+    $('.post-content span').css(styles);
+});
+</script>

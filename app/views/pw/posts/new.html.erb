@@ -1,0 +1,38 @@
+<style type="text/css">
+.alert.alert-success {
+    background-color: #7fcd7c;
+}
+</style>
+<% stylesheets 'form-elements' %>
+<% javascripts 'form-elements' %>
+
+<%= render partials[:nav] %>
+
+<div class="page-container">
+    <%= render partials[:header] %>
+
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="jumbotron" data-pages="parallax">
+                <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+                    <div class="inner">
+                        <ul class="breadcrumb">
+                            <li>
+                                <p>Posts</p>
+                            </li>
+                            <li><a class="active">New</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid container-fixed-lg">
+                <%= form_for @post, url: { action: "create" }, :html => { :multipart => true } do |f| %>
+                    <%= render partial: partials[:form][:post], :locals => { :f => f, :title => "New Post" } %>
+                <% end %>
+            </div>
+
+        </div>
+        <%= render partials[:footer] %>
+    </div>
+</div>

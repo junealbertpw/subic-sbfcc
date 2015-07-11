@@ -1,0 +1,12 @@
+//= require assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js
+//= require assets/plugins/jquery-autonumeric/autoNumeric.js
+//= require assets/plugins/dropzone/dropzone.min.js
+//= require assets/plugins/bootstrap-tag/bootstrap-tagsinput.min.js
+//= require assets/plugins/jquery-inputmask/jquery.inputmask.min.js
+//= require assets/plugins/boostrap-form-wizard/js/jquery.bootstrap.wizard.min.js
+//= require assets/plugins/jquery-validation/js/jquery.validate.min.js
+//= require assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js
+//= require assets/plugins/summernote/js/summernote.min.js
+//= require pages/js/pages.min.js
+//= require assets/js/form_elements.js
+//= require assets/js/scripts.js

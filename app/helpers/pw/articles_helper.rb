@@ -1,0 +1,2 @@
+module Pw::ArticlesHelper
+end

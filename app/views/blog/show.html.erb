@@ -1,0 +1,233 @@
+<style type="text/css">
+/*.post-media {
+    background-color: #efefef;
+    min-height: 350px;
+}*/
+</style>
+
+<div class="page-header parallax clearfix">
+    <div class="title-subtitle-holder">
+        <div class="title-subtitle-holder-inner">
+            <h2>Blog</h2>
+        </div>
+    </div>
+</div>
+<!-- End Page Header --> <!-- Breadcrumbs --> 
+
+<div class="lgray-bg breadcrumb-cont">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="<%= blog_path %>">Blog</a></li>
+            <li><a href="<%= post_category_path(@category.slug) %>"><%= @category.name %></a></li>
+            <li class="active"><%= @post.title %></li>
+        </ol>
+    </div>
+</div>
+
+<!-- Start Body Content --> 
+<div class="main" role="main">
+    <div id="content" class="content full">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <article class="single-post format-standard">
+                        <div class="title-row">
+                            <a href="blog-post.html#comments" class="comments-go" title="10 comments">
+                                <i class="icon-dialogue-text"></i>
+                            </a> 
+                            <h2><%= @post.title %></h2>
+                        </div>
+                        <div class="meta-data">
+                            <span>
+                                <i class="fa fa-calendar"></i> 
+                                <%= format_post_published_date(@post.published_at) %> by
+                                <a href=""><%= @post.company_id == nil ? Category.default.titlecase : @post.company_name %></a>
+                            </span> 
+                            <span>
+                                <i class="fa fa-archive"></i> 
+                                <a href="<%= post_category_path(@category.slug) %>">
+                                    <%= @category.nil? ? "General" : @category.name %>
+                                </a>
+                            </span>
+                        </div>
+                        <% if @post.cover.exists? %>
+                        <div class="post-media">
+                            <a class="media-box">
+                            <img src="<%= @post.cover.url(:medium) %>" alt="" class="post-thumb" width="100%">
+                            </a>
+                        </div>
+                        <% end %>
+                        <div class="post-content">
+                            <%= raw(@post.content) %>
+                        </div>
+                        <!-- <div class="meta-data post-tags"><i class="fa fa-tags"></i> <a href="blog-post.html#">Baptism</a>, <a href="blog-post.html#">Featured</a></div> -->
+                        <div class="social-share-bar">
+                            <h4><i class="fa fa-share-alt"></i>Share</h4>
+                            <ul class="social-icons-colored">
+                                <li class="facebook">
+                                    <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li class="vimeo">
+                                    <a href="https://www.vimeo.com/" target="_blank"><i class="fa fa-vimeo-square"></i></a>
+                                </li>
+                                <li class="twitter">
+                                    <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li class="googleplus">
+                                    <a href="https://plus.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                    <!-- Post Comments --> 
+                    <section class="post-comments" id="comments">
+                        <h4 class="title">Comments (4)</h4>
+                        <ol class="comments">
+                            <li>
+                                <div class="post-comment-block">
+                                    <div class="img-thumbnail"> <img src="<%= asset_path('images/img_avatar.bc663997.png') %>" alt="avatar"> </div>
+                                    <a href="blog-post.html#" class="pull-right" title="Reply to comment"><i class="fa fa-reply"></i></a> 
+                                    <h5>John Doe says</h5>
+                                    <span class="meta-data">Nov 23, 2013 at 7:58 pm</span> 
+                                    <div class="comment-text">
+                                        <p>Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor. Proin enim quam, vulputate at lobortis quis, condimentum at justo. Phasellus nec nisi justo. Ut luctus sagittis nulla at dapibus. Aliquam ullamcorper commodo elit, quis ornare eros consectetur a.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="post-comment-block">
+                                    <div class="img-thumbnail"> <img src="<%= asset_path('images/img_avatar.bc663997.png') %>" alt="avatar"> </div>
+                                    <a href="blog-post.html#" class="pull-right" title="Reply to comment"><i class="fa fa-reply"></i></a> 
+                                    <h5>John Doe says</h5>
+                                    <span class="meta-data">Nov 23, 2013 at 7:58 pm</span> 
+                                    <div class="comment-text">
+                                        <p>Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor. Proin enim quam, vulputate at lobortis quis, condimentum at justo.</p>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="post-comment-block">
+                                            <div class="img-thumbnail"> <img src="<%= asset_path('images/img_avatar.bc663997.png') %>" alt="avatar"> </div>
+                                            <a href="blog-post.html#" class="pull-right" title="Reply to comment"><i class="fa fa-reply"></i></a> 
+                                            <h5>John Doe says</h5>
+                                            <span class="meta-data">Nov 23, 2013 at 7:58 pm</span> 
+                                            <div class="comment-text">
+                                                <p>Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor. Proin enim quam, vulputate at lobortis quis, condimentum at justo. Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor. Proin enim quam, vulputate at lobortis quis, condimentum at justo. Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor. Proin enim quam, vulputate at lobortis quis, condimentum at justo.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="post-comment-block">
+                                            <div class="img-thumbnail"> <img src="<%= asset_path('images/img_avatar.bc663997.png') %>" alt="avatar"> </div>
+                                            <a href="blog-post.html#" class="pull-right" title="Reply to comment"><i class="fa fa-reply"></i></a> 
+                                            <h5>John Doe says</h5>
+                                            <span class="meta-data">Nov 23, 2013 at 7:58 pm</span> 
+                                            <div class="comment-text">
+                                                <p>Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="post-comment-block">
+                                    <div class="img-thumbnail"> <img src="<%= asset_path('images/img_avatar.bc663997.png') %>" alt="avatar"> </div>
+                                    <a href="blog-post.html#" class="pull-right" title="Reply to comment"><i class="fa fa-reply"></i></a> 
+                                    <h5>John Doe says</h5>
+                                    <span class="meta-data">Nov 23, 2013 at 7:58 pm</span> 
+                                    <div class="comment-text">
+                                        <p>Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor. Proin enim quam, vulputate at lobortis quis, condimentum at justo. Phasellus nec nisi justo. Ut luctus sagittis nulla at dapibus. Aliquam ullamcorper commodo elit, quis ornare eros consectetur a.</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </section>
+
+                    <section class="post-comment-form">
+                        <h4 class="title">Post a comment</h4>
+                        <form>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-4 col-sm-4"> <input type="text" class="form-control" placeholder="Your name"> </div>
+                                    <div class="col-md-4 col-sm-4"> <input type="email" class="form-control" placeholder="Your email"> </div>
+                                    <div class="col-md-4 col-sm-4"> <input type="url" class="form-control" placeholder="Website (optional)"> </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-12"> <textarea cols="8" rows="4" class="form-control" placeholder="Your comment"></textarea> </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-lg">Submit your comment</button> 
+                                        <br/><br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="widget sidebar-widget search-form-widget">
+                        <div class="input-group"> <input type="text" class="form-control" placeholder="Search Posts..."> <span class="input-group-btn"> <button class="btn btn-primary" type="button"><i class="fa fa-search fa-lg"></i></button> </span> </div>
+                    </div>
+
+                    <%= render partial: partials[:posts][:category_selection], :locals => { :categories => @categories } %>
+
+                    <div class="widget sidebar-widget">
+                        <h3 class="widgettitle">Post Tags</h3>
+                        <div class="tag-cloud">
+                        <% 
+                            if !@post.tags.nil?
+                                tags = @post.tags.split(",")
+                                @post.tags.split(",").each do |tag|
+                        %>
+                            <a href=""><%= tag %></a>
+                        <% 
+                                end 
+                            end
+                        %>
+                        </div>
+                    </div>
+
+                    <div class="widget sidebar-widget upcoming_events_widget">
+                        <h3 class="widgettitle">Upcoming Events</h3>
+                        <div class="events-listing-content smaller-cont">
+                            <div class="event-list-item">
+                                <div class="event-list-item-date"> <span class="event-date"> <span class="event-day">22</span> <span class="event-month">Sep, 14</span> </span> </div>
+                                <div class="event-list-item-info">
+                                    <div class="lined-info event-title">
+                                        <h4><a href="blog-post.html#">Water Baptism</a></h4>
+                                    </div>
+                                    <span class="meta-data"><i class="fa fa-clock-o"></i> Monday, 10:00 AM</span> <span class="meta-data"><i class="fa fa-map-marker"></i> State Route, Madison US</span> 
+                                </div>
+                            </div>
+                            <div class="event-list-item">
+                                <div class="event-list-item-date"> <span class="event-date"> <span class="event-day">27</span> <span class="event-month">Sep, 14</span> </span> </div>
+                                <div class="event-list-item-info">
+                                    <div class="lined-info event-title">
+                                        <h4><a href="blog-post.html#">Sunday Meet Up</a></h4>
+                                    </div>
+                                    <span class="meta-data"><i class="fa fa-clock-o"></i> Sunday, 05:00 PM</span> <span class="meta-data"><i class="fa fa-map-marker"></i> <span class="event-location-address">55 Warren Street, New York</span></span> 
+                                </div>
+                            </div>
+                            <div class="event-list-item">
+                                <div class="event-list-item-date"> <span class="event-date"> <span class="event-day">06</span> <span class="event-month">Feb, 15</span> </span> </div>
+                                <div class="event-list-item-info">
+                                    <div class="lined-info event-title">
+                                        <h4><a href="http://www.google.com">Holy shift: Strategic think</a></h4>
+                                    </div>
+                                    <span class="meta-data"><i class="fa fa-clock-o"></i> Monday, 10:00 AM</span> <span class="meta-data"><i class="fa fa-map-marker"></i> <span class="event-location-address">123 Broadway, New York, NY</span></span> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
