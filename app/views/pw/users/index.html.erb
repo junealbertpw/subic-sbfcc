@@ -1,2 +1,155 @@
-<h1>Pw::Users#index</h1>
-<p>Find me in app/views/pw/users/index.html.erb</p>
+<style>
+#articleTable thead tr th {
+    padding-left: 20px;
+}
+
+.right {
+    float: right;
+}
+</style>
+
+<% stylesheets 'tables' %>
+<% javascripts 'tables' %>
+
+<%= render partials[:nav] %>
+
+<div class="page-container">
+    <%= render partials[:header] %>
+
+    <div class="page-content-wrapper">
+        <div class="content">
+            <div class="jumbotron" data-pages="parallax">
+                <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+                    <div class="inner">
+                        <ul class="breadcrumb">
+                            <li>
+                                <p>Users</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid container-fixed-lg bg-white">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="panel panel-transparent">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-condensed" id="condensedTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th style="width:35%">Company</th>
+                                                <th style="width:25%">Role</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% @users.each do |user| %>
+                                            <tr>
+                                                <td class="v-align-middle semi-bold">
+                                                    <p>
+                                                        <%= user.first_name %> <%= user.last_name %><br/>
+                                                    <a href=""><%= user.email %></a>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p><%= user.company_name %></p>
+                                                </td>
+                                                <td class="v-align-middle semi-bold">
+                                                    <p><%= user.role.humanize.titlecase %></p>
+                                                </td>
+                                            </tr>
+                                            <% end %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="panel panel-transparent">
+                            <div class="panel-body">
+                                <h3>User Form</h3>
+
+                                <%= form_for @user, url: { action: "create" } do |f| %>
+                                
+                                <%= f.hidden_field :id %>
+
+                                <div class="form-group-attached">
+                                    <div class="form-group">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span class="drop-section">
+                                                    <%= @user.role.humanize.titlecase %>
+                                                </span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <% 
+                                                    User.roles.each do |x, y|  
+                                                        next if y <= User.roles[logged_user_role]
+                                                %>
+                                                <li><a alt="<%= x %>"><%= x.humanize.titlecase %></a></li>
+                                                <% end %>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <br/>
+
+                                    <div class="form-group form-group-default required">
+                                        <label>Email Address</label>
+                                        <%= f.text_field :email, :class => "form-control" %>
+                                    </div>
+
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>First name</label>
+                                                <%= f.text_field :first_name, :class => "form-control" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Last name</label>
+                                                <%= f.text_field :last_name, :class => "form-control" %>
+                                            </div>          
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-default required">
+                                        <label>Password</label>
+                                        <%= f.text_field :first_name, :class => "form-control" %>
+                                    </div>
+                                </div>
+                                <br>
+                                <a href="<%= new_pw_category_path %>" class="btn btn-default">New User</a>
+                                <button type="submit" class="btn btn-primary right"><%= @user.id == nil ? "Create" : "Update"%></button>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= render partials[:footer] %>
+</div>
+</div>
+<script type="text/javascript">
+$(function() {
+    var styles = {
+        'margin-top' : '-5px',
+        'max-height' : '80px',
+        'font-family' : 'inherit',
+        'font-size' : 'inherit',
+        'color' : 'inherit',
+        'line-height' : 'inherit',
+        'text-align' : 'inherit',
+        'overflow' : 'hidden'
+    };
+    
+    $('.post-content p').css(styles);
+    $('.post-content span').css(styles);
+});
+</script>

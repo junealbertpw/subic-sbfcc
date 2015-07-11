@@ -207,7 +207,7 @@
                                     <h3 class="post-title">
                                         <a href="<%= post_path %>"><%= @posts.first.title %></a>
                                     </h3>
-                                    <div class="meta-data">by <a href=""><%= @posts.first.company_id == nil ? Category.default.titlecase : @posts.first.company_name %></a> on <%= format_post_published_date(@posts.first.published_at) %> in <a href="<%= category_path %>"><%= @posts.first.category_name %></a></div>
+                                    <div class="meta-data">by <a href="<%= post_category_path(@posts.first.category_slug) %>"><%= @posts.first.company_id == nil ? Category.default.titlecase : @posts.first.company_name %></a> on <%= format_post_published_date(@posts.first.published_at) %> in <a href="<%= category_path %>"><%= @posts.first.category_name %></a></div>
                                     <div class="post-content">
                                         <%= raw(@posts.first.content) %>
                                     </div>
@@ -239,7 +239,7 @@
                                                 <a href="<%= post_path %>">
                                                     <strong class="post-title"><%= post.title %></strong>
                                                 </a> 
-                                                <div class="meta-data">by <a href=""><%= post.company_id == nil ? Category.default.titlecase : post.company_name %></a> on <%= format_post_published_date(post.published_at) %> in <a href="<%= category_path %>"><%= post.category_name %></a></div>
+                                                <div class="meta-data">by <a href="<%= post_category_path(@posts.first.category_slug) %>"><%= post.company_id == nil ? Category.default.titlecase : post.company_name %></a> on <%= format_post_published_date(post.published_at) %> in <a href="<%= category_path %>"><%= post.category_name %></a></div>
                                                 <div class="post-content">
                                                     <%= raw(post.content) %>
                                                 </div>

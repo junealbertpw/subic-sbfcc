@@ -18,7 +18,7 @@
             <div class="brand inline">
                 <img src="<%= asset_path('assets/img/logo.png') %>" alt="logo" data-src="<%= asset_path('assets/img/logo.png') %>" data-src-retina="<%= asset_path('assets/img/logo_2x.png') %>" width="78" height="22">
             </div>
-            <ul class="notification-list no-margin hidden-sm hidden-xs b-grey b-l b-r no-style p-l-30 p-r-20">
+            <!-- <ul class="notification-list no-margin hidden-sm hidden-xs b-grey b-l b-r no-style p-l-30 p-r-20">
                 <li class="p-r-15 inline">
                     <div class="dropdown">
                         <a href="javascript:;" id="notification-center" class="icon-set globe-fill" data-toggle="dropdown">
@@ -109,13 +109,15 @@
                 <li class="p-r-15 inline">
                     <a href="index.html#" class="icon-set grid-box"></a>
                 </li>
-            </ul>
-            <a href="index.html#" class="search-link" data-toggle="search"><i class="pg-search"></i>Type anywhere to <span class="bold">search</span></a>
+            </ul> -->
+            <a href="" class="search-link" data-toggle="search">
+                <i class="pg-search"></i>Type anywhere to <span class="bold">search</span>
+            </a>
         </div>
     </div>
     <div class=" pull-right">
         <div class="header-inner">
-            <a href="index.html#" class="btn-link icon-set menu-hambuger-plus m-l-20 sm-no-margin hidden-sm hidden-xs" data-toggle="quickview" data-toggle-element="#quickview"></a>
+            <a href="" class="btn-link icon-set menu-hambuger-plus m-l-20 sm-no-margin hidden-sm hidden-xs" data-toggle="quickview" data-toggle-element="#quickview"></a>
         </div>
     </div>
     <div class=" pull-right">
@@ -124,8 +126,7 @@
                 <span class="semi-bold"><%= logged_user['first_name'].titlecase %></span> <span class="text-master"><%= logged_user['last_name'] %></span>
             </div>
             <div class="thumbnail-wrapper d32 circular inline m-t-5">
-                <!-- <img src="<%= asset_path('assets/img/profiles/avatar.jpg') %>" alt="" data-src="<%= asset_path('assets/img/profiles/avatar.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg') %>" width="32" height="32"> -->
-                <img src="<%= asset_path('assets/img/profiles/avatar.jpg') %>" alt="" data-src="<%= asset_path('assets/img/profiles/avatar.jpg') %>" width="32" height="32">
+                <img src="<%= asset_path('avatar.png') %>" alt="" data-src="<%= asset_path('avatar.png') %>" width="32" height="32">
             </div>
         </div>
     </div>

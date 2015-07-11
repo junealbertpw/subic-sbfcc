@@ -7,7 +7,11 @@ class Pw::ArticlesController < ApplicationController
   before_action :check_authorization
   
   def index
-    @articles = Article.all.order('id desc')
+    if display_on_super_and_admin
+      @articles = Article.all.order('id desc')
+    else
+      @articles = Article.all.where(:company_id => logged_company_id).order('id desc')
+    end
   end
 
   def show
@@ -19,17 +23,12 @@ class Pw::ArticlesController < ApplicationController
   end
 
   def update
-    @params = params[:article]
     @article = Article.find(params[:id])
+    @article.published_by = logged_user_id
+    
+    @article.update(article_params)
 
-    @article.title = @params[:title]
-    @article.content = @params[:content]
-    @article.tags = @params[:tags]
-    @article.status = @params[:status]
-
-    @article.save
-
-  	redirect_to edit_pw_article_path(:id => params[:id], :change => 1)
+    redirect_to edit_pw_article_path(:id => @article.id, :change => 1)
   end
 
   def new
@@ -38,18 +37,35 @@ class Pw::ArticlesController < ApplicationController
   end
 
   def create
-    @params = params[:article]
-
-    @article = Article.create do |p|
-      p.title = @params[:title]
-      p.content = @params[:content]
-      p.tags = @params[:tags]
-      p.status = @params[:status]
-    end
+    @article = Article.new(article_params)
+    @article.company_id = logged_company_id
+    @article.published_by = logged_user_id
 
     if @article.save
       redirect_to edit_pw_article_path(:id => @article.id, :change => 0)
     end
+
+    # render :json => params[:article]
+    # return
+
+    # @params = params[:article]
+
+    # @article = Article.create do |p|
+    #   p.title = @params[:title]
+    #   p.content = @params[:content]
+    #   p.tags = @params[:tags]
+    #   p.status = @params[:status]
+    # end
+
+    # if @article.save
+    #   redirect_to edit_pw_article_path(:id => @article.id, :change => 0)
+    # end
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :content, :tags, :status, :cover, :category_id)
   end
 
 end

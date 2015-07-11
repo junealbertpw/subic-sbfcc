@@ -10,6 +10,14 @@ module GlobalHelper
 		return logged_user['id']
 	end
 
+	def logged_user_role
+		return logged_user['role']
+	end
+
+	def logged_company_id
+		return logged_user['company_id']
+	end
+
 	def check_authorization
 		if logged_user.nil?
   			redirect_to pw_path

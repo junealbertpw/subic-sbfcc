@@ -27,7 +27,7 @@
             </div>
 
             <div class="container-fluid container-fixed-lg">
-                <%= form_for @article, url: {action: "create"} do |f| %>
+                <%= form_for @article, url: { action: "create" } do |f| %>
                     <%= render partial: partials[:form][:article], :locals => { :f => f, :title => "New Article" } %>
                 <% end %>
             </div>

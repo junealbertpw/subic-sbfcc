@@ -12,14 +12,14 @@ class BlogController < ApplicationController
   def categorize
     @posts = Post.select("posts.*, companies.id as company_id, companies.name as company_name")
                   .publish
-                  .joins("left outer join companies on companies.user_id = posts.user_id")
+                  .joins("left outer join companies on companies.user_id = posts.company_id")
                   .where(category_id: @category.id)
   end
 
   def show
     @post = Post.select("posts.*, companies.id as company_id, companies.name as company_name")
                 .publish
-                .joins("left outer join companies on companies.user_id = posts.user_id")
+                .joins("left outer join companies on companies.user_id = posts.company_id")
                 .find_by(slug: params[:slug], category_id: @category.id )
 
     if @post.nil?

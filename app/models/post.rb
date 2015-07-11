@@ -25,10 +25,9 @@ class Post < ActiveRecord::Base
   def save_default
     self.slug = self.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
     self.published_at = Time.new
-    
-    if self.category_id.nil?
-      self.category_id = 0
-    end
+
+    self.company_id = self.company_id == nil ? 0 : self.company_id
+    self.category_id = self.category_id == nil ? 0 : self.category_id
 
     if self.status == "draft"
       self.published_by = nil
@@ -40,7 +39,7 @@ class Post < ActiveRecord::Base
     return Post.select("posts.*, categories.name as category_name, categories.slug as category_slug, 
                         companies.id as company_id, companies.name as company_name")
                 .joins("left outer join categories on categories.id = posts.category_id")
-                .joins("left outer join companies on companies.user_id = posts.user_id")
+                .joins("left outer join companies on companies.id = posts.company_id")
                 .order("published_at DESC")
                 .limit(limit)
   end

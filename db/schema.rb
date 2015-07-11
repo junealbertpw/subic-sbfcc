@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150710034420) do
     t.integer  "cover_file_size",    limit: 4
     t.datetime "cover_updated_at"
     t.integer  "status",             limit: 1
-    t.integer  "user_id",            limit: 4
+    t.integer  "company_id",         limit: 4
     t.integer  "published_by",       limit: 4
     t.datetime "published_at"
     t.datetime "created_at",                       null: false
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20150710034420) do
     t.integer  "cover_file_size",    limit: 4
     t.datetime "cover_updated_at"
     t.integer  "status",             limit: 1
-    t.integer  "user_id",            limit: 4
+    t.integer  "company_id",         limit: 4
     t.integer  "published_by",       limit: 4
     t.datetime "published_at"
     t.datetime "created_at",                       null: false

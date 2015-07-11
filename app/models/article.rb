@@ -2,22 +2,21 @@ class Article < ActiveRecord::Base
 
 	enum status: [ :draft, :review, :trash, :publish]
 
-  before_create :set_default
-  before_save :save_slug
-  before_save :save_publish
+  has_attached_file :cover, :styles => { :medium => "600x600>", :small => "300x300", :thumb => "100x100>" } # , :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :cover, :content_type => /\Aimage\/.*\Z/
 
-  def set_default
-    self.created_by = 0
-  end
+  before_save :save_default
 
-	def save_slug
+   def save_default
     self.slug = self.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-  end
+    self.published_at = Time.new
 
-  def save_publish
-    if self.status == "publish"
-      self.published_at = Time.new
-      self.published_by = 0
+    self.company_id = self.company_id == nil ? 0 : self.company_id
+    self.category_id = self.category_id == nil ? 0 : self.category_id
+
+    if self.status == "draft"
+      self.published_by = nil
+      self.published_at = nil
     end
   end
 

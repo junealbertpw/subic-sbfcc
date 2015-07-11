@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get 'members' => 'application#members'
   get 'about' => 'application#about'
-  get 'directors' => 'application#directors'
+  get 'staff' => 'application#staff'
   get 'contact' => 'application#contact'
 
   get 'pw' => 'pw#login'

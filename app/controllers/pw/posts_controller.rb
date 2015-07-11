@@ -14,7 +14,7 @@ class Pw::PostsController < ApplicationController
     if display_on_super_and_admin
       @posts = Post.all.order('id desc')
     else
-      @posts = Post.all.where(:user_id => logged_user_id).order('id desc')
+      @posts = Post.all.where(:company_id => logged_company_id).order('id desc')
     end
 
     @categories.each do |category|
@@ -32,7 +32,7 @@ class Pw::PostsController < ApplicationController
   
   def update
     @post = Post.find(params[:id])
-    @post.published_by = logged_user['id']
+    @post.published_by = logged_user_id
     
     @post.update(post_params)
 
@@ -46,8 +46,8 @@ class Pw::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.published_by = logged_user['id']
-    @post.user_id = logged_user['id']
+    @post.company_id = logged_company_id
+    @post.published_by = logged_user_id
 
     if @post.save
       redirect_to edit_pw_post_path(:id => @post.id, :change => 0)

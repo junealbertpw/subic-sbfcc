@@ -8,7 +8,7 @@ class CreateArticles < ActiveRecord::Migration
       t.string :tags, limit: 250
       t.attachment :cover
       t.integer :status, limit: 1
-      t.integer :user_id
+      t.integer :company_id
       t.integer :published_by
       t.datetime :published_at
 

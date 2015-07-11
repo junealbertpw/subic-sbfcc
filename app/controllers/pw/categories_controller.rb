@@ -9,7 +9,6 @@ class Pw::CategoriesController < ApplicationController
   before_action :get_categories, only: [:show, :new, :update, :create]
 
   def index
-  	@categories = [] #Category.all
   end
 
   def show
