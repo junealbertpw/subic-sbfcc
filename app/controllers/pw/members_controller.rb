@@ -5,12 +5,10 @@ class Pw::MembersController < ApplicationController
   include GlobalHelper
   
   before_action :check_authorization
-  before_action :super_and_admin_only
   before_action :member_types, :only => [:show, :new, :edit]
 
   def index
-    @users = User.select("users.id as user_id, first_name, last_name, users.email, companies.*")
-                  .joins(:company)
+    @users = User.select("users.id as user_id, first_name, last_name, users.email, companies.*").joins(:company)
   end
 
   def show

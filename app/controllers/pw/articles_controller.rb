@@ -7,11 +7,7 @@ class Pw::ArticlesController < ApplicationController
   before_action :check_authorization
   
   def index
-    if display_on_super_and_admin
-      @articles = Article.all.order('id desc')
-    else
-      @articles = Article.all.where(:company_id => logged_company_id).order('id desc')
-    end
+    @articles = Article.by_company_id(logged_company_id)
   end
 
   def show
@@ -44,22 +40,6 @@ class Pw::ArticlesController < ApplicationController
     if @article.save
       redirect_to edit_pw_article_path(:id => @article.id, :change => 0)
     end
-
-    # render :json => params[:article]
-    # return
-
-    # @params = params[:article]
-
-    # @article = Article.create do |p|
-    #   p.title = @params[:title]
-    #   p.content = @params[:content]
-    #   p.tags = @params[:tags]
-    #   p.status = @params[:status]
-    # end
-
-    # if @article.save
-    #   redirect_to edit_pw_article_path(:id => @article.id, :change => 0)
-    # end
   end
 
   private

@@ -20,4 +20,12 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.by_company_id(company_id)
+    if company_id == 0
+      return self.all
+    end
+
+    return self.where(["company_id = %s", company_id])
+  end
+
 end

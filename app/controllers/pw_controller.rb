@@ -26,9 +26,10 @@ class PwController < ApplicationController
 
   def authenticate
   	@auth = User.authenticate(params[:user])
-
+  
   	if !@auth.nil?
-  		session[:auth] = @auth
+      session[:auth] = @auth
+
   		redirect_to pw_dashboard_path
   		return
   	end

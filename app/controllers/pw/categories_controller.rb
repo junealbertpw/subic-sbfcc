@@ -5,46 +5,63 @@ class Pw::CategoriesController < ApplicationController
   include GlobalHelper
   
   before_action :check_authorization
-  before_action :super_and_admin_only
-  before_action :get_categories, only: [:show, :new, :update, :create]
+  before_action :find_category, only: [:index, :new, :edit, :update]
+  before_action :get_categories, only: [:index, :edit, :show]
 
   def index
   end
 
   def show
-  	@category = Category.find(params[:id])
+    redirect_to pw_categories_path
   end
 
   def edit
-  	redirect_to pw_category_path(:id => params[:id])
+    if @category.nil?
+      redirect_to pw_categories_path
+      return
+    end
+
+    render "index"
   end
 
   def update
-  	render "show"
+    @category.update(category_params)
+
+    redirect_to pw_category_path(@category.id)
   end
 
   def new
-  	@category = Category.new
-  	@category.parent = "post"
-
-  	render "show"
+    render "index"
   end
 
   def create
-  	@params = params[:category]
-  	@category = Category.new
+    @category = Category.new(category_params)
 
-  	@category.name = @params[:name]
-  	@category.description = @params[:description]
-  	@category.parent = @params[:parent]
+    if @category.save
+      redirect_to edit_pw_category_path(@category.id)
+      return
+    end
 
-  	if @category.save
-  		redirect_to pw_category_path(:id => @category.id)
-  	end
+    get_categories
+    render "index"
   end
 
-  def get_categories 
-  	@categories = Category.all
+  private
+
+  def find_category
+    @category = Category.new(:parent => "post")
+
+    unless params[:id] == nil
+      @category = Category.find_by_id(params[:id])
+    end
+  end
+
+  def get_categories
+    @categories = Category.all
+  end
+
+  def category_params
+    params.require(:category).permit(:parent, :name, :description)
   end
 
 end

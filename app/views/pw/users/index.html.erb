@@ -39,7 +39,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th style="width:35%">Company</th>
+                                                <th style="width:40%">Email</th>
                                                 <th style="width:25%">Role</th>
                                             </tr>
                                         </thead>
@@ -48,12 +48,13 @@
                                             <tr>
                                                 <td class="v-align-middle semi-bold">
                                                     <p>
-                                                        <%= user.first_name %> <%= user.last_name %><br/>
-                                                    <a href=""><%= user.email %></a>
+                                                    <a href="<%= edit_pw_user_path(user.id) %>"><%= user.first_name %> <%= user.last_name %></a><br/>
                                                     </p>
                                                 </td>
                                                 <td>
-                                                    <p><%= user.company_name %></p>
+                                                    <p>
+                                                    <a href="mailto:contact@sbfcc.com"><%= user.email %></a>
+                                                    </p>
                                                 </td>
                                                 <td class="v-align-middle semi-bold">
                                                     <p><%= user.role.humanize.titlecase %></p>
@@ -72,23 +73,28 @@
                             <div class="panel-body">
                                 <h3>User Form</h3>
 
-                                <%= form_for @user, url: { action: "create" } do |f| %>
+                                <%= form_for :user, :url => { action: @user.id == nil ? "create" : "update" }, 
+                                                    :html => { method: @user.id == nil ? "post" : "put" } do |f| %>
                                 
-                                <%= f.hidden_field :id %>
+                                <%= f.hidden_field :role %>
 
                                 <div class="form-group-attached">
                                     <div class="form-group">
+                                        <label>Role</label>
                                         <div class="dropdown">
                                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <span class="drop-section">
-                                                    <%= @user.role.humanize.titlecase %>
+                                                    <%= 
+                                                        @user.role.humanize.titlecase
+                                                    %>
                                                 </span>
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                                 <% 
-                                                    User.roles.each do |x, y|  
-                                                        next if y <= User.roles[logged_user_role]
+                                                    roles.each do |x, y|  
+                                                        next if super_and_admin_roles && y == 2
+                                                        next if y == 0
                                                 %>
                                                 <li><a alt="<%= x %>"><%= x.humanize.titlecase %></a></li>
                                                 <% end %>
@@ -119,11 +125,15 @@
                                     </div>
                                     <div class="form-group form-group-default required">
                                         <label>Password</label>
-                                        <%= f.text_field :first_name, :class => "form-control" %>
+                                        <%= f.password_field :new_password, :class => "form-control" %>
+                                    </div>
+                                    <div class="form-group form-group-default required">
+                                        <label>Confirm Password</label>
+                                        <%= f.password_field :confirm_password, :class => "form-control" %>
                                     </div>
                                 </div>
                                 <br>
-                                <a href="<%= new_pw_category_path %>" class="btn btn-default">New User</a>
+                                <a href="<%= new_pw_user_path %>" class="btn btn-default">New User</a>
                                 <button type="submit" class="btn btn-primary right"><%= @user.id == nil ? "Create" : "Update"%></button>
                                 <% end %>
                             </div>
@@ -136,20 +146,16 @@
     <%= render partials[:footer] %>
 </div>
 </div>
+
 <script type="text/javascript">
-$(function() {
-    var styles = {
-        'margin-top' : '-5px',
-        'max-height' : '80px',
-        'font-family' : 'inherit',
-        'font-size' : 'inherit',
-        'color' : 'inherit',
-        'line-height' : 'inherit',
-        'text-align' : 'inherit',
-        'overflow' : 'hidden'
-    };
-    
-    $('.post-content p').css(styles);
-    $('.post-content span').css(styles);
+$( function() {
+  $( '.dropdown li a' ).click( function() {
+    $( '#user_role' ).val( $( this ).attr( 'alt' ) );
+    $( '.drop-section' ).text( $( this ).text() )
+  });
+
+  $( '.btn-file' ).click(function() {
+    $( '.file-control' ).click();
+  })
 });
 </script>

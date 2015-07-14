@@ -23,11 +23,13 @@ class User < ActiveRecord::Base
 
 	def self.authenticate(params)
 		if params[:email] == "administrator" && params[:password] == "admin.sbfcc"
-			return User.new(:id => 0, :first_name => params[:email], :email => "admin@sbfcc.com", :role => 0)
+			return User.new(:id => 0, :first_name => params[:email], :email => "admin@sbfcc.com", :role => 0, :company_id => 0)
 		end
 
 		user = self.find_by_email(params[:email])
 
+		return user
+		
 		if !user.nil?
 			if BCrypt::Password.new(user.password).is_password? params[:password]
         		return user
@@ -35,6 +37,11 @@ class User < ActiveRecord::Base
 		end
 
 		return nil
+	end
+
+	def self.join_by_company
+		return self.select("users.*, companies.name AS company_name, companies.id AS company_id")
+  				   .joins("LEFT OUTER JOIN companies on companies.user_id = users.company_id")
 	end
 
 end

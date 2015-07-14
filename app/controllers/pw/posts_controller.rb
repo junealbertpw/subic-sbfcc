@@ -9,13 +9,7 @@ class Pw::PostsController < ApplicationController
 
   def index
     @hash = {}
-    @posts = []
-
-    if display_on_super_and_admin
-      @posts = Post.all.order('id desc')
-    else
-      @posts = Post.all.where(:company_id => logged_company_id).order('id desc')
-    end
+    @posts = Post.by_company_id(logged_company_id)
 
     @categories.each do |category|
       @hash[category.id] = category.name
